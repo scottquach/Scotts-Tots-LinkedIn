@@ -17,23 +17,30 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './dist'));
 });
 
+let pool = mysql.createPool({
+  host: 'uw.mysql.database.azure.com',
+  user: 'group_mu@uw',
+  password: 'Database1',
+  database: 'css_475',
+});
+
 app.post('/api/query', (req, res) => {
   console.log('quering');
   console.log(req.body);
   if (req.body.query) {
-    let connection = mysql.createConnection({
-      host: 'uw.mysql.database.azure.com',
-      user: 'group_mu@uw',
-      password: 'Database1',
-      database: 'css_475',
-    });
+    // let connection = mysql.createConnection({
+    //   host: 'uw.mysql.database.azure.com',
+    //   user: 'group_mu@uw',
+    //   password: 'Database1',
+    //   database: 'css_475',
+    // });
 
-    connection.connect();
-    return connection.query(req.body.query, (error, results, fields) => {
+    // connection.connect();
+    return pool.query(req.body.query, (error, results, fields) => {
       if (error) throw error;
       console.log("result was " + JSON.stringify(results, null, 2));
       res.send(results);
-      connection.end();
+      // connection.end();
     });
   } else console.log("query was empty")
 

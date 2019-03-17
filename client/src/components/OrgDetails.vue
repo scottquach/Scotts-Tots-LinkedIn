@@ -2,8 +2,7 @@
   <v-dialog v-model="dialog" width="500">
     <!-- <template v-slot:activator="{ on }">
       <v-btn color="red lighten-2" dark v-on="on">Click Me</v-btn>
-    </template> -->
-
+    </template>-->
     <v-card>
       <v-card-title class="headline lighten-2" primary-title>{{ org.org_name }}</v-card-title>
       <v-card-text>
@@ -14,6 +13,15 @@
           <span>{{ org.org_country }}</span>
           <h3>Industry</h3>
           <span>{{ org.org_industry }}</span>
+          <v-list v-if="jobs">
+            <v-subheader>Jobs</v-subheader>
+            <v-list-tile v-for="job in jobs" :key="job.job_no" avatar>
+              <v-list-tile-content>
+                <v-list-tile-title v-html="job.job_title"></v-list-tile-title>
+                <v-list-tile-sub-title>{{ job.job_desc }}</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
         </div>
       </v-card-text>
       <v-divider></v-divider>
@@ -27,13 +35,14 @@
 </template>
 
 <script>
-import Axios from 'axios';
+import Axios from "axios";
 
 export default {
   data: function() {
     return {
-      isFollowing: false
-    }
+      isFollowing: false,
+      jobs: []
+    };
   },
   props: ["org", "dialog"],
   methods: {
@@ -47,10 +56,23 @@ export default {
         console.log(result);
         this.isFollowing = true;
       });
+    },
+    getJobs: function() {
+      Axios.post("/api/query", {
+        query: `SELECT * FROM job WHERE org_id = ${this.org.org_id}`
+      }).then(result => {
+        console.log(result);
+        this.jobs = [];
+        this.jobs.push(...result.data);
+      });
     }
   },
-  created() {
-      // Axios.post("/api/query")
+  watch: {
+    dialog: function(newVal) {
+      if (newVal) {
+        this.getJobs();
+      }
+    }
   }
 };
 </script>

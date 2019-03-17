@@ -14,6 +14,13 @@
           <span>{{ user.user_city + ", " + user.user_country }}</span>
           <h3>Joined</h3>
           <span>{{ user.join_date }}</span>
+          <v-subheader v-if="Object.keys(job).length > 0">Job</v-subheader>
+          <v-list-tile>
+            <v-list-tile-content>
+              <v-list-tile-title v-html="job.job_title"></v-list-tile-title>
+              <v-list-tile-sub-title>{{ job.job_desc }}</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
         </div>
       </v-card-text>
       <v-divider></v-divider>
@@ -33,7 +40,8 @@ import Axios from "axios";
 export default {
   data: function() {
     return {
-      isFollowing: false
+      isFollowing: false,
+      job: {}
     };
   },
   props: ["user", "dialog"],
@@ -48,6 +56,21 @@ export default {
         console.log(result);
         this.isFollowing = true;
       });
+    },
+    getJob: function() {
+      Axios.post("/api/query", {
+        query: `SELECT * FROM job WHERE job_no = ${this.user.job_no}`
+      }).then(result => {
+        console.log(result);
+        this.job = result.data[0];
+      });
+    }
+  },
+  watch: {
+    dialog: function(newVal) {
+      if (newVal) {
+        this.getJob();
+      }
     }
   }
 };
