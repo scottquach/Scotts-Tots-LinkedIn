@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>Users</h1>
-    <button @click="getUsers()">test</button>
     <v-list>
       <template v-for="user in users">
         <v-list-tile avatar v-if="user.user_id != currentUser" :key="user.user_id" @click="selectedUser = user; openDetails = true">
@@ -45,6 +44,9 @@ export default {
   },
   components: {
     UserDetails
+  },
+  created() {
+    this.getUsers();
   }
 };
 </script>

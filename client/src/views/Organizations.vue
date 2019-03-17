@@ -1,7 +1,6 @@
 <template>
   <div>
-      <h1>Organizations</h1>
-    <button @click="getOrganizations()">test</button>
+    <h1>Organizations</h1>
     <v-list>
       <v-list-tile v-for="org in organizations" :key="org.org_id" avatar style="margin-bottom: 1rem;" @click="selectedOrg = org;openDetails = true">
         <v-list-tile-avatar>
@@ -42,6 +41,9 @@ export default {
   },
   components: {
     OrgDetails
+  },
+  created() {
+    this.getOrganizations();
   }
 };
 </script>
