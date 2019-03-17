@@ -1,13 +1,13 @@
 <template>
   <v-app>
     <nav-bar/>
-    <button @click="test()">Test</button>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
 import NavBar from './components/NavBar'
+import Home from './views/Home'
 import Axios from 'axios';
 
 export default {
@@ -15,12 +15,12 @@ export default {
   methods: {
     test: function() {
       console.log("this is a test");
-      Axios.post('/api/query', {}).then(res => console.log(res));
+      Axios.post('/api/query', {"query": "SELECT * FROM USER"}).then(res => console.log(res));
     }
   },
   components: {
     NavBar,
-    HelloWorld
+    Home
   },
   data () {
     return {

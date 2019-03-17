@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <!-- <HelloWorld/> -->
-    <button @click="test()">Click me</button>
+  <div class="home">
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
 import NavBar from "../components/NavBar";
 
 export default {
@@ -16,8 +14,14 @@ export default {
     }
   },
   components: {
-    HelloWorld,
     NavBar
   }
 };
 </script>
+
+<style scoped>
+.home {
+  padding: 2rem;
+}
+</style>
+

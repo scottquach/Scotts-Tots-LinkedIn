@@ -1,5 +1,7 @@
 <template>
+    <div>
     
+    </div>    
 </template>
 
 
@@ -7,12 +9,10 @@
 import Axios from 'axios';
 
 export default {
-    data: function() {
-        users: []
-    },
+    props: ['user'],
     methods: {
         getUsers: function() {
-
+            
         }
     }
 }
