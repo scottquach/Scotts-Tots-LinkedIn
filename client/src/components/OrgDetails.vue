@@ -19,6 +19,7 @@
       <v-divider></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
+        <v-btn flat @click="followOrg" :disabled="isFollowing">Follow org</v-btn>
         <v-btn color="primary" flat @click="$emit('close')">Close</v-btn>
       </v-card-actions>
     </v-card>
@@ -29,9 +30,24 @@
 import Axios from 'axios';
 
 export default {
+  data: function() {
+    return {
+      isFollowing: false
+    }
+  },
   props: ["org", "dialog"],
   methods: {
-    getData: function() {}
+    getData: function() {},
+    followOrg: function() {
+      Axios.post("/api/query", {
+        query: `INSERT INTO follows_org (user_id, org_id) VALUES (${
+          this.$route.params.id
+        }, ${this.org.org_id})`
+      }).then(result => {
+        console.log(result);
+        this.isFollowing = true;
+      });
+    }
   },
   created() {
       // Axios.post("/api/query")
