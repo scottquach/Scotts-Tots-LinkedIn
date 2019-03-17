@@ -4,7 +4,7 @@
     <button @click="getUsers()">test</button>
     <v-list>
       <template v-for="user in users">
-        <v-list-tile avatar :key="user.user_id" @click="selectedUser = user; openDetails = true">
+        <v-list-tile avatar v-if="user.user_id != currentUser" :key="user.user_id" @click="selectedUser = user; openDetails = true">
           <v-list-tile-avatar>
             <v-icon>account_circle</v-icon>
           </v-list-tile-avatar>
@@ -26,6 +26,7 @@ import UserDetails from '../components/UserDetails'
 export default {
   data: function() {
     return {
+      currentUser: this.$route.params.id,
       users: [],
       openDetails: false,
       selectedUser: {}

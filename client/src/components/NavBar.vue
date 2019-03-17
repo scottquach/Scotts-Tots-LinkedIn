@@ -6,9 +6,9 @@
     <v-toolbar-title>Interconnexus</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn flat >Network</v-btn>
+      <v-btn flat @click="feed()">Network</v-btn>
       <v-btn flat @click="users()">Users</v-btn>
-      <v-btn flat @click="organizations">Organizations</v-btn>
+      <v-btn flat @click="organizations()">Organizations</v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
@@ -16,6 +16,9 @@
 <script>
 export default {
   methods: {
+    feed: function() {
+      this.$router.push({name: 'feed', params: { id: this.$route.params.id}});
+    },
     users: function() {
       this.$router.push({name: 'users', params: { id: this.$route.params.id}});
     },

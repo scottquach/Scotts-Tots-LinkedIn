@@ -28,7 +28,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn flat @click="followOrg" :disabled="isFollowing">Follow org</v-btn>
-        <v-btn color="primary" flat @click="$emit('close')">Close</v-btn>
+        <v-btn color="primary" flat @click="$emit('close'); isFollowing = false;">Close</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

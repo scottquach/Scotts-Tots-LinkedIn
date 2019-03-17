@@ -5,6 +5,8 @@
       <h3 class="profile__name">{{ user.first_name + " " + user.last_name}}</h3>
       <h3>{{ user.user_city + ", " + user.user_state + " " + user.user_country }}</h3>
       <h3>{{ "Joined " + user.join_date }}</h3>
+      <v-list-tile-title style="margin-top: 2rem;"><b>{{user.job_title}}</b></v-list-tile-title>
+      <v-list-tile-sub-title>{{ user.job_desc }}</v-list-tile-sub-title>
       <v-card style="margin-top: 5rem;">
         <v-card-title primary-title>
           <div>
@@ -26,7 +28,7 @@
     </div>
     <div class="profile__post">
       <h2>Your posts</h2>
-      <template v-for="post in posts" >
+      <template v-for="post in posts">
         <v-card :key="post.post_id" color="#26c6da" dark style="margin-top: 2rem;">
           <v-card-text>{{ post.Pcontent }}</v-card-text>
           <v-card-actions>
@@ -56,23 +58,30 @@ export default {
   methods: {
     post: function() {
       Axios.post("/api/query", {
-        "query": `INSERT INTO POST (Pcontent, Pcreated_date, user_id) values (\"${this.postContent}\", \"${new Date().toISOString().slice(0, 19).replace('T', ' ')}\", ${this.$route.params.id})`
+        query: `INSERT INTO POST (Pcontent, Pcreated_date, user_id) values (\"${
+          this.postContent
+        }\", \"${new Date()
+          .toISOString()
+          .slice(0, 19)
+          .replace("T", " ")}\", ${this.$route.params.id})`
       }).then(result => {
         console.log(result);
         this.postContent = "";
-      })
+      });
     }
   },
   created() {
     console.log(this.$route.params);
     Axios.post("/api/query", {
-      "query": `SELECT * FROM USER WHERE USER.user_id = ${this.$route.params.id}`
+      query: `SELECT * FROM USER JOIN JOB ON JOB.job_no = USER.job_no WHERE USER.user_id = ${
+        this.$route.params.id
+      }`
     }).then(result => {
       console.log(result);
       this.user = result.data[0];
     });
     Axios.post("/api/query", {
-      "query": `SELECT * FROM POST WHERE POST.user_id = ${this.$route.params.id}`
+      query: `SELECT * FROM POST WHERE POST.user_id = ${this.$route.params.id}`
     }).then(result => {
       console.log(result);
       this.posts.push(...result.data);
