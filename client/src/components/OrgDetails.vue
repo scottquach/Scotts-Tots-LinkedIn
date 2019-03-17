@@ -1,17 +1,17 @@
 <template>
-    <v-dialog v-model="dialog" width="500">
+  <v-dialog v-model="dialog" width="500">
     <!-- <template v-slot:activator="{ on }">
       <v-btn color="red lighten-2" dark v-on="on">Click Me</v-btn>
     </template> -->
 
     <v-card>
-      <v-card-title class="headline lighten-2" primary-title>{{ user.first_name + " " + user.last_name }}</v-card-title>
+      <v-card-title class="headline lighten-2" primary-title>{{ org.org_name }}</v-card-title>
       <v-card-text>
         <div>
-          <h3>Area</h3>
-          <span>{{ user.user_city + ", " + user.user_country }}</span>
-          <h3>Joined</h3>
-          <span>{{ user.join_date }}</span>
+          <h3>Founded</h3>
+          <span>{{ org.year_founded}}</span>
+          <h3>Headquartered</h3>
+          <span>{{ org.org_country }}</span>
         </div>
       </v-card-text>
       <v-divider></v-divider>
@@ -23,20 +23,16 @@
   </v-dialog>
 </template>
 
-
 <script>
 import Axios from 'axios';
 
 export default {
-    props: ["user", "dialog"],
-    methods: {
-        getUsers: function() {
-            
-        }
-    }
-}
+  props: ["org", "dialog"],
+  methods: {
+    getData: function() {}
+  },
+  created() {
+      // Axios.post("/api/query")
+  }
+};
 </script>
-
-<style>
-
-</style>

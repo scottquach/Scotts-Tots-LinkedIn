@@ -4,7 +4,7 @@
     <button @click="getUsers()">test</button>
     <v-list>
       <template v-for="user in users">
-        <v-list-tile @click="openUserDetails" avatar :key="user.user_id">
+        <v-list-tile avatar :key="user.user_id" @click="selectedUser = user; openDetails = true">
           <v-list-tile-avatar>
             <v-icon>account_circle</v-icon>
           </v-list-tile-avatar>
@@ -15,16 +15,20 @@
         </v-list-tile>
       </template>
     </v-list>
+    <user-details :user="selectedUser" :dialog="openDetails" @close="openDetails = false"/>
   </div>
 </template>
 
 <script>
-import Axios from "axios";
+import Axios from 'axios';
+import UserDetails from '../components/UserDetails'
 
 export default {
   data: function() {
     return {
-      users: []
+      users: [],
+      openDetails: false,
+      selectedUser: {}
     };
   },
   methods: {
@@ -37,6 +41,9 @@ export default {
       });
     },
     openUserDetails: function() {}
+  },
+  components: {
+    UserDetails
   }
 };
 </script>

@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --mode dev",
     "lint": "vue-cli-service lint",
-    "dev": "watch \"npm run build\" src"
+    "dev": "watch \"npm run build\" src && \"nodemon server.js\"" 
   },
   "dependencies": {
     "axios": "^0.18.0",

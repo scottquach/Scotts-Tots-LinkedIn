@@ -1,15 +1,17 @@
 <template>
-    
+    <div class="feed"></div>
 </template>
 
 <script>
 import Axios from 'axios';
 
 export default {
-    methods: {
-        getData: function() {
+    created() {
 
-        }
     }
 }
 </script>
+
+<style scoped>
+
+</style>

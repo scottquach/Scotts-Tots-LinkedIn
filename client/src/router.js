@@ -4,6 +4,7 @@ import Home from './views/Home.vue';
 import Users from './views/Users.vue';
 import Organizations from './views/Organizations.vue';
 import Profile from './views/Profile.vue';
+import Feed from './views/Feed.vue';
 
 Vue.use(Router);
 
@@ -15,6 +16,10 @@ export default new Router({
       name: 'home',
       component: Home,
       children: [
+        {
+          path: 'feed',
+          component: Feed
+        },
         {
           path: 'users',
           component: Users

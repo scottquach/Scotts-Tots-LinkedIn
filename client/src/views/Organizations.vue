@@ -3,7 +3,7 @@
       <h1>Organizations</h1>
     <button @click="getOrganizations()">test</button>
     <v-list>
-      <v-list-tile v-for="org in organizations" :key="org.org_id" avatar style="margin-bottom: 1rem;">
+      <v-list-tile v-for="org in organizations" :key="org.org_id" avatar style="margin-bottom: 1rem;" @click="selectedOrg = org;openDetails = true">
         <v-list-tile-avatar>
           <v-icon>account_balance</v-icon>
         </v-list-tile-avatar>
@@ -14,16 +14,21 @@
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
+    <org-details :org="selectedOrg" :dialog="openDetails" @close="openDetails = false" />
   </div>
 </template>
 
 <script>
-import Axios from "axios";
+import Axios from 'axios';
+import OrgDetails from '../components/OrgDetails';
+
 
 export default {
   data: function() {
     return {
-      organizations: []
+      organizations: [],
+      selectedOrg: {},
+      openDetails: false
     };
   },
   methods: {
@@ -34,6 +39,9 @@ export default {
         this.organizations = result.data;
       });
     }
+  },
+  components: {
+    OrgDetails
   }
 };
 </script>

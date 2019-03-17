@@ -1,29 +1,39 @@
 <template>
   <div class="profile">
-    <div>
+    <div style="width: 45%">
       <h1>Profile</h1>
       <h3 class="profile__name">{{ user.first_name + " " + user.last_name}}</h3>
       <h3>{{ user.user_city + ", " + user.user_state + " " + user.user_country }}</h3>
       <h3>{{ "Joined " + user.join_date }}</h3>
+      <v-card style="margin-top: 5rem;">
+        <v-card-title primary-title>
+          <div>
+            <div class="headline">Share with your netowork</div>
+          </div>
+        </v-card-title>
+        <v-card-text>
+          <v-textarea
+            box
+            label="Content"
+            v-model="postContent"
+            value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+          ></v-textarea>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn flat color="orange" @click="post()">Post</v-btn>
+        </v-card-actions>
+      </v-card>
     </div>
     <div class="profile__post">
-      <template v-for="post in posts">
-        <v-card :key="post.post_id" color="#26c6da" dark>
-          <!-- <v-card-title>
-            <span class="profile__post--header">Post</span>
-          </v-card-title> -->
+      <h2>Your posts</h2>
+      <template v-for="post in posts" >
+        <v-card :key="post.post_id" color="#26c6da" dark style="margin-top: 2rem;">
           <v-card-text>{{ post.Pcontent }}</v-card-text>
           <v-card-actions>
             <v-list-tile>
               <v-list-tile-content>
-                <v-list-tile-title>{{ post.Pcreated_date}} </v-list-tile-title>
+                <v-list-tile-title>{{ post.Pcreated_date}}</v-list-tile-title>
               </v-list-tile-content>
-
-              <!-- <v-icon class="mr-1">mdi-heart</v-icon>
-              <span class="subheading mr-2">256</span>
-              <span class="mr-1">·</span>
-              <v-icon class="mr-1">mdi-share-variant</v-icon>
-              <span class="subheading">45</span> -->
             </v-list-tile>
           </v-card-actions>
         </v-card>
@@ -39,20 +49,30 @@ export default {
   data: function() {
     return {
       user: {},
-      posts: []
+      posts: [],
+      postContent: ""
     };
   },
-  methods: {},
+  methods: {
+    post: function() {
+      Axios.post("/api/query", {
+        "query": `INSERT INTO POST (Pcontent, Pcreated_date, user_id) values (\"${this.postContent}\", \"${new Date().toISOString().slice(0, 19).replace('T', ' ')}\", ${this.$route.params.id})`
+      }).then(result => {
+        console.log(result);
+        this.postContent = "";
+      })
+    }
+  },
   created() {
     console.log(this.$route.params);
     Axios.post("/api/query", {
-      query: `SELECT * FROM USER WHERE USER.user_id = ${this.$route.params.id}`
+      "query": `SELECT * FROM USER WHERE USER.user_id = ${this.$route.params.id}`
     }).then(result => {
       console.log(result);
       this.user = result.data[0];
     });
     Axios.post("/api/query", {
-      query: `SELECT * FROM POST WHERE POST.user_id = ${this.$route.params.id}`
+      "query": `SELECT * FROM POST WHERE POST.user_id = ${this.$route.params.id}`
     }).then(result => {
       console.log(result);
       this.posts.push(...result.data);
@@ -74,7 +94,6 @@ export default {
 
 .profile__post {
   width: 40rem;
-  color: white;
 }
 
 .profile__post--header {
