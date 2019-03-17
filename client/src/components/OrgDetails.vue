@@ -12,6 +12,8 @@
           <span>{{ org.year_founded}}</span>
           <h3>Headquartered</h3>
           <span>{{ org.org_country }}</span>
+          <h3>Industry</h3>
+          <span>{{ org.org_industry }}</span>
         </div>
       </v-card-text>
       <v-divider></v-divider>

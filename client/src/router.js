@@ -12,24 +12,28 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/home',
+      path: '/home/:id',
       name: 'home',
       component: Home,
       children: [
         {
           path: 'feed',
+          name: 'feed',
           component: Feed
         },
         {
           path: 'users',
+          name: 'users',
           component: Users
         },
         {
           path: 'organizations',
+          name: 'organizations',
           component: Organizations
         },
         {
-          path: 'profile/:id',
+          path: 'profile',
+          name: 'profile',
           component: Profile
         }
       ]
