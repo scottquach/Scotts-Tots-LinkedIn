@@ -3,7 +3,7 @@
     <v-btn flat icon color="pink" @click="home">
       <v-icon>home</v-icon>
     </v-btn>
-    <v-toolbar-title>Interconnexus</v-toolbar-title>
+    <v-toolbar-title>Connexus</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat @click="feed()">Network</v-btn>
