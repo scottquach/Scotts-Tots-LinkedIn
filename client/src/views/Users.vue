@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     getUsers: function() {
-      Axios.post("/api/query", {
+      Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
         query: "SELECT * FROM USER"
       }).then(result => {
         console.log(result);

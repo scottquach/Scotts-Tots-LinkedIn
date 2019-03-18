@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     getOrganizations: function() {
-      Axios.post("/api/query", {
+      Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
         query: "SELECT * FROM ORGANIZATION"
       }).then(result => {
         this.organizations = result.data;

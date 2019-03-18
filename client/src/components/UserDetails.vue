@@ -48,7 +48,7 @@ export default {
   methods: {
     getUsers: function() {},
     followUser: function() {
-      Axios.post("/api/query", {
+      Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
         query: `INSERT INTO follows_user (follower_uid, followee_uid) VALUES (${
           this.$route.params.id
         }, ${this.user.user_id})`
@@ -58,7 +58,7 @@ export default {
       });
     },
     getJob: function() {
-      Axios.post("/api/query", {
+      Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
         query: `SELECT * FROM job WHERE job_no = ${this.user.job_no}`
       }).then(result => {
         console.log(result);

@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     likePost: function(post) {
-      Axios.post("/api/query", {
+      Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
         query: `insert into likes(user_id, post_id) values(${
           this.$route.params.id
         }, ${post.post_id})`
@@ -70,7 +70,7 @@ export default {
       });
     },
     getPosts: function() {
-      Axios.post("/api/query", {
+      Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
         query: `select * from post join user on user.user_id = post.user_id where post.user_id in (select followee_uid from follows_user where follower_uid = ${
           this.$route.params.id
         });`
@@ -81,7 +81,7 @@ export default {
       });
     },
     openDetails: function(selectedPost) {
-      Axios.post("/api/query", {
+      Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
         query: `select * from user join (
 	select post.user_id,post.post_id, Pcontent, Pcreated_date, count(post.post_id) as likes from likes, post where likes.post_id = post.post_id and post.post_id = ${
     selectedPost.post_id
@@ -95,7 +95,7 @@ export default {
         } else {
           this.selectedPost = {};
         }
-        Axios.post("/api/query", {
+        Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
           query: `select * from comment where comment.post_id = ${
             selectedPost.post_id
           }`
@@ -106,7 +106,7 @@ export default {
       });
     },
     comment: function() {
-      Axios.post("/api/query", {
+      Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
         query: `INSERT INTO COMMENT (post_id, user_id, cmt_content, Cpost_date) VALUES (${
           this.selectedPost.post_id
         },

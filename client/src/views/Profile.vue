@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     post: function() {
-      Axios.post("/api/query", {
+      Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
         query: `INSERT INTO POST (Pcontent, Pcreated_date, user_id) values (\"${
           this.postContent
         }\", \"${new Date()
@@ -72,7 +72,7 @@ export default {
   },
   created() {
     console.log(this.$route.params);
-    Axios.post("/api/query", {
+    Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
       query: `SELECT * FROM USER JOIN JOB ON JOB.job_no = USER.job_no WHERE USER.user_id = ${
         this.$route.params.id
       }`
@@ -80,7 +80,7 @@ export default {
       console.log(result);
       this.user = result.data[0];
     });
-    Axios.post("/api/query", {
+    Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
       query: `SELECT * FROM POST WHERE POST.user_id = ${this.$route.params.id}`
     }).then(result => {
       console.log(result);

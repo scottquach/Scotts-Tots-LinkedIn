@@ -48,7 +48,7 @@ export default {
   methods: {
     getData: function() {},
     followOrg: function() {
-      Axios.post("/api/query", {
+      Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
         query: `INSERT INTO follows_org (user_id, org_id) VALUES (${
           this.$route.params.id
         }, ${this.org.org_id})`
@@ -58,7 +58,7 @@ export default {
       });
     },
     getJobs: function() {
-      Axios.post("/api/query", {
+      Axios.post("https://us-central1-homework-rpg.cloudfunctions.net/query", {
         query: `SELECT * FROM job WHERE org_id = ${this.org.org_id}`
       }).then(result => {
         console.log(result);
